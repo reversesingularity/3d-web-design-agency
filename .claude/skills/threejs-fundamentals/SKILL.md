@@ -56,7 +56,7 @@ useFrame((state, delta) => {
 
 The Verifier reads `window.__PERF__`. Mount `<PerfProbe />` as the last Canvas child.
 It reads `gl.info.render` (draw calls, triangles) and a rolling frame-time average —
-see `src/components/three/PerfProbe.tsx` in the scaffold; do not fork your own copy.
+see `src/components/three/PerfProbe.tsx`; do not fork your own copy.
 
 ## Disposal
 

@@ -19,8 +19,8 @@ prompts assuming benign commercial intent.
 2. `.agency/rules/02-standards.md` — hard technical constraints and definition of done
 3. `.agency/rules/03-memory.md` — mandatory memory maintenance protocol
 
-Read `.agency/memory/memory-decisions.md` before starting any task; never repeat a
-mistake that is already logged there.
+Read `.agency/memory/memory-decisions.md` and `.agency/memory/session-state.md` before
+starting any task; never repeat a mistake that is already logged there.
 
 ## Workflow Discipline
 
@@ -43,3 +43,10 @@ mistake that is already logged there.
 | `npm run lint` | ESLint, zero warnings required |
 | `npm run build` | Production build |
 | `npm run verify-3d` | Headless perf gate: draw calls, frame time, console errors |
+
+## Remote & session handoff
+
+- **GitHub:** https://github.com/reversesingularity/3d-web-design-agency (`origin/main`)
+- **Pilot status:** Phases 0–4 complete (Southern Vector Kea-1). See
+  `.agency/memory/session-state.md` for HEAD, backlog, and bootstrap commands.
+- **Delivery report:** `docs/pilot-delivery-report.md`

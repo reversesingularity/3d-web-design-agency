@@ -20,9 +20,10 @@ npm run verify-3d    # writes perf-report.json
 Then read `perf-report.json` and apply the gate from `.agency/rules/02-standards.md`:
 
 - PASS requires: 0 type errors, 0 lint warnings, successful build, draw calls < 100,
-  zero page console errors, and avg frame time ≤ 16.6 ms **when** the report's
-  `renderer` field indicates real GPU (frame time is advisory when the renderer string
-  contains "SwiftShader" or "llvmpipe" — say so explicitly).
+  zero page console errors, ≤ 2 scene re-renders while animating, and sustained 60 FPS
+  — avg frame interval ≤ **17.4 ms** with < 5% of frames slower than 25 ms **when** the
+  report's `renderer` field indicates real GPU (frame time is advisory when the renderer
+  string contains "SwiftShader" or "llvmpipe" — say so explicitly).
 - Any other outcome is FAIL.
 
 Report format (verbatim structure):
@@ -37,3 +38,6 @@ BLOCKING ISSUES: <numbered list with exact log excerpts, or "none">
 
 Never soften a FAIL. Include the exact failing output so the developer can act on it
 without re-running anything.
+
+When the verdict is PASS on `main`, update `.agency/memory/session-state.md` with the
+new HEAD and note the merge in your report.

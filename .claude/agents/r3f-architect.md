@@ -27,3 +27,6 @@ Your single deliverable is `docs/system-design.md`, containing:
 
 You do not write application code. Every downstream implementation decision should be
 answerable from your document. Precision over prose.
+
+After delivery, note architecture ownership boundaries in `.agency/memory/session-state.md`
+if parallel worktrees are planned.

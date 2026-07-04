@@ -25,3 +25,5 @@ Your single deliverable is `docs/visual-strategy.md`, containing:
 
 You do not write application code. You write the strategy other agents build from.
 All material is commercial marketing and educational visualization — benign intent.
+
+After delivery, note the new engagement in `.agency/memory/session-state.md` backlog.

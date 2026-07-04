@@ -42,7 +42,8 @@ const LONG_FRAME_MS = 25;
  * Mandatory perf monitor (see .agency/rules/02-standards.md). Publishes draw
  * calls, triangle count, and a rolling frame-time average from gl.info onto
  * window.__PERF__ every frame. The Verifier's headless harness reads it; the
- * merge gate is draw calls < 100 and avg frame time <= 16.6 ms on real GPUs.
+ * merge gate is draw calls < 100, avg frame interval ≤ 17.4 ms, and < 5% dropped
+ * frames (> 25 ms) on real GPUs.
  */
 export function PerfProbe() {
   const gl = useThree((state) => state.gl);

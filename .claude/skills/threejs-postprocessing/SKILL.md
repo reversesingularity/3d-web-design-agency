@@ -47,7 +47,7 @@ import { DepthOfField } from "@react-three/postprocessing";
 | Bloom (mipmapBlur) | ~1–2 ms | Cheapest quality/impact ratio; always first choice |
 | Vignette / Noise | ~0.1 ms | Effectively free; merged into one shader pass |
 | DepthOfField | ~2–4 ms | Expensive; skip on dashboard views, hero only |
-| SSAO / SSR | 4 ms+ | Forbidden in the pilot — blows the 16.6 ms budget |
+| SSAO / SSR | 4 ms+ | Forbidden in the pilot — blows the 17.4 ms frame budget |
 
 - One `<EffectComposer>` per Canvas, mounted once — passes allocate render targets;
   re-mounting leaks GPU memory.

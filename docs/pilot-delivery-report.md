@@ -3,7 +3,8 @@
 **Agency:** Autonomous 3D Web Design Agency (Loop-Engineered Claude Fable 5)  
 **Client narrative:** Southern Vector Aerospace — precision small-launch & Moa multi-drop logistics  
 **Delivery date:** 2026-07-04  
-**Status:** Phase 0–4 complete · merged to `main` · Verifier PASS
+**Status:** Phase 0–4 complete · merged to `main` · Verifier PASS · published to GitHub  
+**Remote:** https://github.com/reversesingularity/3d-web-design-agency
 
 ---
 
@@ -26,7 +27,8 @@ dashboard. Both routes pass the binding quality gate (typecheck, lint, build,
 | 3a | Strategist + Architect docs | `de5420c` | Done |
 | 3b | Parallel hero + dashboard builds | `18adb66`, `da0ec20` | Done |
 | 3c | Verifier gates + merge to `main` | `47de3ce` | Done |
-| 4 | Memory update, cleanup, this report | (this commit) | Done |
+| 4 | Memory update, cleanup, this report | `763e6e6` | Done |
+| — | README + GitHub publish | `82b487e` | Done |
 
 ---
 
@@ -111,7 +113,10 @@ docs/
   visual-strategy.md    → Strategist deliverable
   system-design.md      → Architect deliverable
   pilot-delivery-report.md  → this file
-.agency/                → rules + memory
+.agency/
+  memory/session-state.md   → volatile session handoff (overwrite each session)
+  memory/memory-decisions.md → append-only workarounds
+  rules/                → persona, standards, memory protocol
 .claude/                → agents + skills
 scripts/verify-3d.mjs   → headless Playwright gate
 ```
@@ -131,16 +136,19 @@ npm run dev          # local preview at http://localhost:3000
 
 ---
 
-## Known follow-ups (out of scope for pilot)
+## Known follow-ups (next session backlog)
+
+See `.agency/memory/session-state.md` for the live prioritized backlog. Summary:
 
 1. **De-dupe shared 3D primitives** — Starfield, SlotField, CorridorFresnelMaterial,
    StagingBloomMaterial exist in both namespaces; extract to `src/components/three/shared/`.
-2. **Worktree lint hardening** — set `outputFileTracingRoot` in `next.config.ts` to stop
-   multi-lockfile workspace inference when linting inside `.worktrees/*`.
-3. **Prune stale worktrees** — `.worktrees/{bootstrap,scaffold,hero,dashboard}` can be
-   removed via `git worktree remove` now that features are on `main`.
-4. **Real telemetry feed** — replace scripted simulator with WebSocket/API when a live
+2. **Real telemetry feed** — replace scripted simulator with WebSocket/API when a live
    webcast source is available.
+3. **Visual polish pass** — landing scroll/phase sync, reduced-motion fallback on hero.
+4. **CI workflow** — GitHub Actions with Playwright + verify-3d on push/PR.
+5. **Prune stale worktrees** — `.worktrees/{bootstrap,scaffold,hero,dashboard}` via
+   `git worktree remove`.
+6. **Next client engagement** — re-run Strategist → Architect for new `visual-strategy.md`.
 
 ---
 
@@ -148,6 +156,8 @@ npm run dev          # local preview at http://localhost:3000
 
 All phases of the Claude Fable 5 loop-engineering blueprint for this pilot are complete.
 The agency harness, quality gate, and Southern Vector Kea-1 dual-route product are on
-`main` and ready for client preview or iteration on the next engagement.
+`main`, published to GitHub, and ready for client preview or the next engagement.
+
+**Next agent:** read `.agency/memory/session-state.md` first.
 
 *One line through the dark, arriving exactly where it said it would.*

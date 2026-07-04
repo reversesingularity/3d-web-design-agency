@@ -36,3 +36,8 @@
 - 2026-07-04 — Dashboard telemetry polyline: use imperative `THREE.Line` with
   `DownlinkShimmerMaterialImpl` via `<primitive object={line} />`; declarative R3F
   `<line>` clashes with React 19 SVG intrinsic types in strict TypeScript.
+- 2026-07-04 — Published to GitHub: `reversesingularity/3d-web-design-agency` (public,
+  `origin/main`). Session handoff lives in `.agency/memory/session-state.md` (volatile,
+  overwrite each session); `memory-decisions.md` stays append-only.
+- 2026-07-04 — `outputFileTracingRoot` set in `next.config.ts` to the repo root so
+  worktrees with their own `node_modules` resolve lint/build to the correct package.json.

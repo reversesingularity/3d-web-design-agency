@@ -1,5 +1,7 @@
 # Autonomous 3D Web Design Agency
 
+[![GitHub](https://img.shields.io/github/stars/reversesingularity/3d-web-design-agency?style=social)](https://github.com/reversesingularity/3d-web-design-agency)
+
 Loop-engineered autonomous agency for immersive **React Three Fiber** landing pages and
 telemetry dashboards — built for deep-tech and aerospace clients. This repo ships a full
 agent harness (rules, skills, sub-agents, quality gates) plus a pilot product for
@@ -8,6 +10,7 @@ agent harness (rules, skills, sub-agents, quality gates) plus a pilot product fo
 > Commercial marketing and educational data visualization only. No weaponization or
 > controlled technical data.
 
+**Repository:** https://github.com/reversesingularity/3d-web-design-agency
 ## Pilot product — Southern Vector / Kea-1
 
 Two routes share the **"Corridor"** visual metaphor: a single luminous trajectory through
@@ -55,6 +58,7 @@ writes `perf-report.json`.
 | [`CLAUDE.md`](CLAUDE.md) | Root orchestration context |
 | [`.agency/rules/`](.agency/rules/) | Persona, technical standards, memory protocol |
 | [`.agency/memory/memory-decisions.md`](.agency/memory/memory-decisions.md) | Append-only decision log |
+| [`.agency/memory/session-state.md`](.agency/memory/session-state.md) | **Session handoff** — read first each new session |
 | [`.claude/agents/`](.claude/agents/) | Strategist, Architect, WebGL Developer, Verifier |
 | [`.claude/skills/`](.claude/skills/) | R3F patterns, deep-tech narrative extraction |
 | [`loop-engineering-claude-fable5-3d-web-design-agency.md`](loop-engineering-claude-fable5-3d-web-design-agency.md) | Full loop-engineering blueprint |
@@ -79,8 +83,10 @@ docs/                   Strategist, architect, and delivery artifacts
 
 ## License
 
-Private pilot — all rights reserved unless otherwise specified by the repository owner.
+Public repository — all rights reserved by the repository owner unless a separate
+license file is added.
 
+**Session handoff:** agents must read and update [`.agency/memory/session-state.md`](.agency/memory/session-state.md) at session start/end.
 ---
 
 Built with loop engineering for **Engineered Optimism** — precision made visible as geometry.
