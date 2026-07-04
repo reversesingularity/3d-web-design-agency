@@ -13,12 +13,13 @@
 | **GitHub** | https://github.com/reversesingularity/3d-web-design-agency |
 | **Remote** | `origin` → `https://github.com/reversesingularity/3d-web-design-agency.git` |
 | **Default branch** | `main` (synced with `origin/main`) |
-| **HEAD** | `82b487e` — docs: add project README for GitHub |
+| **HEAD** | `36a7a0a` — chore: point session-state at current HEAD |
 | **Visibility** | Public |
 
 ### Recent commit history
 
 ```
+5ad55a0 chore: session handoff governance and agent alignment
 82b487e docs: add project README for GitHub
 763e6e6 docs: Phase 4 pilot closure — memory log and delivery report
 47de3ce merge: feat/telemetry-dashboard
