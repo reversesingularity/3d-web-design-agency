@@ -1,0 +1,21 @@
+# dependencies / build
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# worktrees live inside the repo but are never tracked
+.worktrees/
+
+# generated verification artifacts
+perf-report.json
+verify-artifacts/
+
+# env & secrets — never committed
+.env
+.env.*
+
+# misc
+.DS_Store
+npm-debug.log*
