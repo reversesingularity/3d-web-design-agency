@@ -6,6 +6,10 @@
   --accent: #5eead4;
   --accent-hot: #f97316;
   --line: #1b2333;
+  --accent-deep: #0f766e;
+  --accent-faint: #134e4a;
+  --alert: #f43f5e;
+  --ember: #fdba74;
 }
 
 * {
