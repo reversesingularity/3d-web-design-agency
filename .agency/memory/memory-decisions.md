@@ -20,3 +20,19 @@
   plus dropped-frame % (>25 ms frames < 5%) instead. Headless Chromium on this machine
   uses the real RTX 3080 via ANGLE/D3D11 (no SwiftShader fallback), so FPS gates are
   binding locally.
+- 2026-07-04 — Parallel Phase 3b builds used namespaced folders (`three/landing/**` vs
+  `three/dashboard/**`) with intentional duplication of Starfield, SlotField, and shader
+  materials per `docs/system-design.md` §0. De-dupe into shared primitives is a
+  post-merge refactor, not a merge blocker.
+- 2026-07-04 — Shared CSS tokens (`--accent-deep`, `--accent-faint`, `--alert`, `--ember`)
+  were appended once on `feat/hero-landing` before the dashboard worktree started; the
+  dashboard branch carried identical `:root` lines and merged to `main` without conflict.
+- 2026-07-04 — `npm run lint` inside `.worktrees/*` fails when the repo root lacks
+  `node_modules`: Next.js multi-lockfile detection resolves ESLint config from the parent
+  `package.json`. Binding fix: `npm install` at repo root before lint/verify; optional
+  hardening: set `outputFileTracingRoot` in `next.config.ts` to silence workspace warnings.
+- 2026-07-04 — Fresh worktrees need `npx playwright install chromium` once before
+  `npm run verify-3d` (Playwright browsers are not bundled in `npm install`).
+- 2026-07-04 — Dashboard telemetry polyline: use imperative `THREE.Line` with
+  `DownlinkShimmerMaterialImpl` via `<primitive object={line} />`; declarative R3F
+  `<line>` clashes with React 19 SVG intrinsic types in strict TypeScript.
