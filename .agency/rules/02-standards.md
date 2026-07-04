@@ -37,9 +37,11 @@ A task is NOT complete until, in the feature worktree:
 2. `npm run lint` reports **zero warnings**.
 3. `npm run build` succeeds.
 4. `npm run verify-3d` passes: **draw calls < 100 per frame**, **zero page console
-   errors**, and average frame time **≤ 16.6 ms** on GPU-backed rendering (when the
-   headless renderer falls back to SwiftShader software rendering, the frame-time gate
-   is advisory and draw calls + console errors are the binding gate — record the
-   renderer string in the report).
+   errors**, **≤ 2 React re-renders of the scene while animating**, and **sustained
+   60 FPS** — average frame interval ≤ 17.4 ms (rAF is vsync-locked, so a healthy
+   60 FPS scene averages ~16.7 ms; never gate on a raw 16.6 cutoff) with < 5% of
+   frames slower than 25 ms. When the headless renderer falls back to SwiftShader
+   software rendering the FPS gate is advisory and draw calls + console errors are
+   binding — record the renderer string in the report.
 
 Only the Verifier role authorizes a merge to `main`.
