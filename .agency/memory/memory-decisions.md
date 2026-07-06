@@ -41,3 +41,10 @@
   overwrite each session); `memory-decisions.md` stays append-only.
 - 2026-07-04 — `outputFileTracingRoot` set in `next.config.ts` to the repo root so
   worktrees with their own `node_modules` resolve lint/build to the correct package.json.
+- 2026-07-06 — `gl.info.autoReset` resets stats on EVERY `renderer.render()` call, so
+  with a multi-pass EffectComposer the probe only ever saw the final fullscreen pass
+  (1 call / 1 triangle) and the draw-call gate was trivially green. Fix in PerfProbe:
+  `gl.info.autoReset = false` + manual `gl.info.reset()` once per frame in `useFrame`
+  (pre-render), which publishes the previous frame's accumulated totals across all
+  passes. Expect historical perf-report drawCalls/triangles readings before this date
+  to be under-counted.

@@ -59,6 +59,14 @@ export function PerfProbe() {
     rendererName.current = dbg
       ? String(ctx.getParameter(dbg.UNMASKED_RENDERER_WEBGL))
       : "unknown";
+    // autoReset zeroes gl.info on EVERY render() call, so with a multi-pass
+    // EffectComposer the stats only ever describe the final fullscreen pass
+    // (1 call / 1 triangle). Accumulate across all passes of a frame instead
+    // and reset manually once per frame in useFrame below.
+    gl.info.autoReset = false;
+    return () => {
+      gl.info.autoReset = true;
+    };
   }, [gl]);
 
   useFrame(() => {
@@ -72,19 +80,23 @@ export function PerfProbe() {
     }
     last.current = now;
 
+    // useFrame runs before this frame renders, so gl.info currently holds the
+    // full accumulated totals of the PREVIOUS frame (every composer pass).
     const f = frames.current;
-    if (f.length === 0) return;
-    window.__PERF__ = {
-      drawCalls: gl.info.render.calls,
-      triangles: gl.info.render.triangles,
-      geometries: gl.info.memory.geometries,
-      textures: gl.info.memory.textures,
-      avgFrameMs: f.reduce((a, b) => a + b, 0) / f.length,
-      samples: f.length,
-      longFrames: longFrames.current,
-      totalFrames: totalFrames.current,
-      renderer: rendererName.current,
-    };
+    if (f.length > 0) {
+      window.__PERF__ = {
+        drawCalls: gl.info.render.calls,
+        triangles: gl.info.render.triangles,
+        geometries: gl.info.memory.geometries,
+        textures: gl.info.memory.textures,
+        avgFrameMs: f.reduce((a, b) => a + b, 0) / f.length,
+        samples: f.length,
+        longFrames: longFrames.current,
+        totalFrames: totalFrames.current,
+        renderer: rendererName.current,
+      };
+    }
+    gl.info.reset();
   });
 
   return null;
