@@ -1,7 +1,7 @@
 # Session State (volatile — overwrite each session)
 
-**Last updated:** 2026-07-06 (pipeline audit + brand imagery session)  
-**Updated by:** Orchestrator — perf-gate integrity fix + blueprint archive shipped  
+**Last updated:** 2026-07-06 (README + push session)  
+**Updated by:** Orchestrator — comprehensive README written + 3 commits pushed to origin  
 **Read this file first** after `memory-decisions.md` when starting a new session.
 
 ---
@@ -14,7 +14,7 @@
 | **Remote** | `origin` → `https://github.com/reversesingularity/3d-web-design-agency.git` |
 | **Default branch** | `main` |
 | **HEAD** | tip of `feat/brand-imagery` merge — run `git log --oneline -3` for hashes (do NOT hand-copy hashes into this file; the last two pilot commits existed only to chase this field) |
-| **Push state** | NOT pushed this session — `origin/main` is behind local `main` |
+| **Push state** | PUSHED — `origin/main` is current as of `a5814eb` (2026-07-06) |
 | **Visibility** | Public |
 
 ---
@@ -77,11 +77,9 @@ For new features: `git worktree add .worktrees/<feature> -b feat/<feature>`, the
 
 ## Priority backlog (next session)
 
-1. **Push to origin** — local `main` has the perf fix + blueprint archive; user
-   confirmation expected before push.
-2. **De-dupe shared 3D primitives** — Starfield/SlotField/materials into
+1. **De-dupe shared 3D primitives** — Starfield/SlotField/materials into
    `src/components/three/shared/`; update `system-design.md` ownership map.
-3. **Regenerate blueprint plates (optional)** — current AI-generated renders contain
+2. **Regenerate blueprint plates (optional)** — current AI-generated renders contain
    typo text ("VECICLE", "DISPEPPER", "ARPUITECTURE"); fine at display size, flagged
    to user 2026-07-06.
 4. **Real telemetry feed** — WebSocket/REST poller behind the existing 20 Hz transient /
