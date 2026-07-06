@@ -48,3 +48,8 @@
   (pre-render), which publishes the previous frame's accumulated totals across all
   passes. Expect historical perf-report drawCalls/triangles readings before this date
   to be under-counted.
+- 2026-07-06 — Landing scroll progress is anchored to the `#corridor-narrative`
+  container (not `document.scrollHeight`), so DOM sections appended below the 500vh
+  narrative (e.g. `BlueprintArchive`) never compress the scene choreography;
+  `setScroll` clamps to 1 past the narrative, holding the "deploy" phase. Static
+  brand imagery lives in `public/blueprints/` (kebab-case, no spaces in filenames).

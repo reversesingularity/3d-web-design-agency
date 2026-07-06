@@ -1,7 +1,7 @@
 # Session State (volatile — overwrite each session)
 
-**Last updated:** 2026-07-04 (session handoff commit)  
-**Updated by:** Session closure — governance alignment + GitHub sync  
+**Last updated:** 2026-07-06 (pipeline audit + brand imagery session)  
+**Updated by:** Orchestrator — perf-gate integrity fix + blueprint archive shipped  
 **Read this file first** after `memory-decisions.md` when starting a new session.
 
 ---
@@ -12,44 +12,29 @@
 |---|---|
 | **GitHub** | https://github.com/reversesingularity/3d-web-design-agency |
 | **Remote** | `origin` → `https://github.com/reversesingularity/3d-web-design-agency.git` |
-| **Default branch** | `main` (synced with `origin/main`) |
-| **HEAD** | `36a7a0a` — chore: point session-state at current HEAD |
+| **Default branch** | `main` |
+| **HEAD** | tip of `feat/brand-imagery` merge — run `git log --oneline -3` for hashes (do NOT hand-copy hashes into this file; the last two pilot commits existed only to chase this field) |
+| **Push state** | NOT pushed this session — `origin/main` is behind local `main` |
 | **Visibility** | Public |
-
-### Recent commit history
-
-```
-5ad55a0 chore: session handoff governance and agent alignment
-82b487e docs: add project README for GitHub
-763e6e6 docs: Phase 4 pilot closure — memory log and delivery report
-47de3ce merge: feat/telemetry-dashboard
-da0ec20 feat: flight telemetry dashboard with instrument scene and HUD
-18adb66 feat: Kea-1 corridor hero landing with scroll-driven R3F scene
-de5420c docs: visual strategy and system design for Southern Vector pilot
-bcd0925 feat: Next.js 15 + R3F pilot scaffold with verify-3d quality gate
-caea785 feat: agency infrastructure
-eba7739 docs: add loop-engineering agency blueprint
-```
 
 ---
 
-## Pilot status: COMPLETE (Phases 0–4)
+## Status: pilot COMPLETE + post-pilot hardening shipped
 
-The Southern Vector Aerospace (Kea-1) pilot loop is **closed**. All phases merged to
-`main` and published to GitHub. The agency harness is operational for the **next client
-engagement** or **post-pilot refinements**.
+Pilot (Phases 0–4, Southern Vector Kea-1) closed on 2026-07-04. This session (2026-07-06):
 
-| Phase | Status |
-|---|---|
-| 0 Git bootstrap | Done |
-| 1 Agency infra | Done |
-| 2 R3F scaffold + verify-3d | Done |
-| 3a Strategist + Architect docs | Done |
-| 3b Parallel hero + dashboard | Done |
-| 3c Verifier + merge | Done |
-| 4 Memory + delivery report | Done |
+1. **Full-gate audit on `main`** — typecheck / lint / build / verify-3d all PASS.
+2. **`fix: PerfProbe accumulates gl.info across all composer passes`** — the draw-call
+   gate had been reading only the composer's final fullscreen pass (1 call / 1 tri).
+   True numbers now: landing 22 calls / 212k tris, dashboard 21 / 212k. Both under
+   the <100 budget at 60.0–60.2 FPS, 0 errors, 0 scene re-renders.
+3. **`feat: blueprint technical archive on landing page`** — 8 client-uploaded Kea-1
+   engineering plates (in `public/blueprints/`, kebab-case) rendered in a new
+   `BlueprintArchive` section below the Corridor narrative; `ScrollDriver` now anchors
+   scroll progress to `#corridor-narrative` so appended sections never compress the
+   scene choreography. Visual check: 8/8 plates load, zero failed requests.
 
-**Delivery report:** `docs/pilot-delivery-report.md`
+Original uploads remain untracked at repo-root `images/` (user's files — not deleted).
 
 ---
 
@@ -57,14 +42,13 @@ engagement** or **post-pilot refinements**.
 
 | Route | Entry | Key files |
 |---|---|---|
-| Hero landing | `app/page.tsx` | `src/components/landing/*`, `src/components/three/landing/*`, `src/stores/heroStore.ts` |
+| Hero landing | `app/page.tsx` | `src/components/landing/*` (incl. `BlueprintArchive.tsx` + module.css), `src/components/three/landing/*`, `src/stores/heroStore.ts` |
 | Telemetry dashboard | `app/dashboard/page.tsx` | `src/components/dashboard/*`, `src/components/three/dashboard/*`, `src/stores/telemetryStore.ts`, `src/hooks/useHudSnapshot.ts` |
-| Shared perf probe | — | `src/components/three/PerfProbe.tsx` |
+| Shared perf probe | — | `src/components/three/PerfProbe.tsx` (autoReset=false + manual per-frame reset) |
+| Blueprint plates | `/blueprints/*.jpg` | `public/blueprints/` — 8 plates, 1168×784 |
 
 **Controlling docs (do not contradict without Strategist/Architect re-run):**
-
-- `docs/visual-strategy.md` — narrative, tokens, copy deck
-- `docs/system-design.md` — stores, scene graph, shader spec, ownership map
+`docs/visual-strategy.md`, `docs/system-design.md`.
 
 ---
 
@@ -77,61 +61,34 @@ npm run typecheck && npm run lint && npm run build && npm run verify-3d
 npm run dev                       # http://localhost:3000
 ```
 
-**Local GPU:** RTX 3080 via ANGLE/D3D11 — FPS gate is binding.  
-**Regenerate perf evidence:** `npm run verify-3d` → `perf-report.json` (gitignored).
+**Local GPU:** RTX 3080 via ANGLE/D3D11 — FPS gate is binding.
 
 ---
 
-## Stale worktrees (safe to prune)
+## Worktrees
 
-These worktrees predate the final merge and can be removed when no longer needed:
+Merged and safe to prune (`git worktree remove .worktrees/<name>`):
+`bootstrap`, `scaffold`, `hero`, `dashboard`, `perfprobe`, `imagery`.
 
-```
-.worktrees/bootstrap   → feat/agency-bootstrap  (caea785)
-.worktrees/scaffold    → feat/pilot-scaffold    (de5420c)
-.worktrees/hero        → feat/hero-landing      (18adb66) — merged
-.worktrees/dashboard   → feat/telemetry-dashboard (da0ec20) — merged
-```
-
-```bash
-git worktree remove .worktrees/hero
-git worktree remove .worktrees/dashboard
-# repeat for bootstrap/scaffold if desired
-```
-
-For **new features**, create a fresh worktree:
-
-```bash
-git worktree add .worktrees/<feature> -b feat/<feature>
-cd .worktrees/<feature> && npm install && npx playwright install chromium
-```
-
-Run quality gates from **repo root** (`npm install` at root) if lint fails inside a
-worktree due to multi-lockfile inference (see `memory-decisions.md`).
+For new features: `git worktree add .worktrees/<feature> -b feat/<feature>`, then
+`npm ci` inside it. Run `npx playwright install chromium` once per machine.
 
 ---
 
 ## Priority backlog (next session)
 
-Ordered by impact; pick based on user intent:
-
-1. **De-dupe shared 3D primitives** — extract Starfield, SlotField,
-   CorridorFresnelMaterial, StagingBloomMaterial from `three/landing/` and
-   `three/dashboard/` into `src/components/three/shared/`. Update `system-design.md`
-   ownership map. Single worktree; Verifier gate before merge.
-
-2. **Real telemetry feed** — replace `telemetryStore` scripted interval with WebSocket or
-   REST poller; keep 20 Hz transient / 4 Hz HUD throttle pattern.
-
-3. **Visual polish pass** — scroll section sync, branch-tube visibility tied to
-   `heroStore.phase`, Moa deploy burst on each payload flip, `prefers-reduced-motion`
-   static fallback on landing (dashboard already partial).
-
-4. **CI workflow** — GitHub Actions: `npm ci`, `playwright install chromium`, full gate
-   on push/PR. Note SwiftShader advisory for frame time in headless runners.
-
-5. **Next client engagement** — run Deep-Tech Strategist → R3F Architect for new client;
-   replace or extend routes per new `visual-strategy.md` / `system-design.md`.
+1. **Push to origin** — local `main` has the perf fix + blueprint archive; user
+   confirmation expected before push.
+2. **De-dupe shared 3D primitives** — Starfield/SlotField/materials into
+   `src/components/three/shared/`; update `system-design.md` ownership map.
+3. **Regenerate blueprint plates (optional)** — current AI-generated renders contain
+   typo text ("VECICLE", "DISPEPPER", "ARPUITECTURE"); fine at display size, flagged
+   to user 2026-07-06.
+4. **Real telemetry feed** — WebSocket/REST poller behind the existing 20 Hz transient /
+   4 Hz HUD pattern.
+5. **CI workflow** — GitHub Actions full gate; SwiftShader frame-time advisory applies.
+6. **`next lint` deprecation** — migrate to ESLint CLI before Next 16 (config must stay
+   in `package.json#eslintConfig`; standalone ESLint config files are hook-blocked).
 
 ---
 
@@ -154,14 +111,10 @@ UI + WebGL dev; Haiku = verification tickets.
 When ending a session, the active agent **must**:
 
 1. Append new workarounds to `.agency/memory/memory-decisions.md` (append-only).
-2. **Overwrite** this file (`.agency/memory/session-state.md`) with current HEAD,
-   backlog, and blockers.
+2. **Overwrite** this file with current status, backlog, and blockers — reference
+   branches and dates, not commit hashes.
 3. Update `docs/pilot-delivery-report.md` only if a milestone shipped.
-4. Push to `origin/main` if the user expects remote persistence.
+4. Push to `origin/main` only with user confirmation.
 
-When starting a session, read in order:
-
-1. `CLAUDE.md`
-2. `.agency/rules/01-persona.md` → `02-standards.md` → `03-memory.md`
-3. `.agency/memory/memory-decisions.md`
-4. **This file** (`session-state.md`)
+When starting a session, read in order: `CLAUDE.md` → `.agency/rules/01..03` →
+`memory-decisions.md` → this file.

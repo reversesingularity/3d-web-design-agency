@@ -13,8 +13,14 @@ export function ScrollDriver() {
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        const doc = document.documentElement;
-        const max = doc.scrollHeight - window.innerHeight;
+        // Anchor progress to the narrative container so sections appended
+        // below it (e.g. the blueprint archive) don't stretch the timeline.
+        // setScroll clamps to [0,1], so scrolling past the narrative simply
+        // holds the final "deploy" phase.
+        const narrative = document.getElementById("corridor-narrative");
+        const max = narrative
+          ? narrative.offsetHeight - window.innerHeight
+          : document.documentElement.scrollHeight - window.innerHeight;
         const progress = max > 0 ? window.scrollY / max : 0;
         store.getState().setScroll(progress);
       });

@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { BlueprintArchive } from "./BlueprintArchive";
 import { CopyDeck } from "./CopyDeck";
 import { ScrollDriver } from "./ScrollDriver";
 
@@ -17,8 +18,13 @@ export function LandingPage() {
     <>
       <ScrollDriver />
       <CorridorCanvas />
-      <main style={{ position: "relative", minHeight: "500vh" }}>
-        <CopyDeck />
+      <main style={{ position: "relative" }}>
+        {/* ScrollDriver measures this container, not the document, so content
+            appended below never compresses the corridor choreography. */}
+        <div id="corridor-narrative" style={{ position: "relative", minHeight: "500vh" }}>
+          <CopyDeck />
+        </div>
+        <BlueprintArchive />
       </main>
     </>
   );
